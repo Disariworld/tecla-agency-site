@@ -193,45 +193,7 @@
     z-index:0;
   }
   .hero:hover .spotlight{opacity:1}
-  .hero-sub{
-    margin-top:38px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:flex-end;
-    gap:24px;
-    flex-wrap:wrap;
-    position:relative;
-  }
-  .hero-sub p{
-    max-width:420px;
-    color:var(--gray);
-    font-size:1.08rem;
-    line-height:1.55;
-  }
-  .hero-sub p strong{color:var(--white);font-weight:600}
-  .spin-badge{
-    width:110px;height:110px;
-    position:relative;
-    flex-shrink:0;
-  }
-  .spin-badge svg{width:100%;height:100%;overflow:visible}
-  #spinRing{transform-origin:50% 50%;animation:spin 26s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
   .hp-field{display:none}
-  .spin-badge text{
-    font-family:var(--mono);
-    font-size:10.5px;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    fill:var(--white);
-  }
-  .spin-badge .center{
-    position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--display);
-    font-size:1.5rem;
-    color:var(--orange);
-  }
 
   /* ================= STATEMENT (word by word scroll reveal) ================= */
   .statement{
@@ -600,7 +562,6 @@
     .stats-grid{grid-template-columns:1fr 1fr}
     .clients-grid{grid-template-columns:repeat(3,1fr)}
     footer{padding:26px 22px}
-    .spin-badge{width:88px;height:88px}
   }
   @media(max-width:640px){
     .clients-grid{grid-template-columns:repeat(3,1fr)}
@@ -643,17 +604,6 @@
     <span class="hero-line"><span>for the most ambitious</span></span>
     <span class="hero-line"><span>brands in the world.</span></span>
   </h1>
-  <div class="hero-sub">
-    <div class="spin-badge" aria-label="Over 70 million dollars generated for clients">
-      <svg viewBox="0 0 110 110" id="spinRing">
-        <defs>
-          <path id="circlePath" d="M 55,55 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"/>
-        </defs>
-        <text><textPath href="#circlePath">$70M+ GENERATED · FOR OUR CLIENTS · </textPath></text>
-      </svg>
-      <div class="center">↓</div>
-    </div>
-  </div>
 </header>
 
 
@@ -821,7 +771,6 @@
 <script>
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const nav = document.getElementById('nav');
-  const spinRing = document.getElementById('spinRing');
   const kin1 = document.getElementById('kin1');
   const kinetic = document.querySelector('.kinetic');
 
@@ -900,7 +849,6 @@
 
     if (reduced) return;
 
-    // spin badge now rotates continuously via CSS (see #spinRing animation)
 
     // hero headline drifts up and fades slightly as you scroll away
     const heroFade = Math.min(y / (window.innerHeight * 0.9), 1);
