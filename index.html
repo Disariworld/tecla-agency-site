@@ -76,13 +76,17 @@
     display:block;
     overflow:hidden;
     width:210px;
-    background:var(--orange);
-    color:var(--black);
+    background:rgba(243,239,231,.08);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(243,239,231,.25);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+    color:var(--white);
     border-radius:100px;
     padding:11px 0;
-    transition:background .25s, transform .18s ease-out;
+    transition:background .25s, border-color .25s, transform .18s ease-out;
   }
-  .pill-cta:hover{background:var(--orange-hi)}
+  .pill-cta:hover{background:rgba(243,239,231,.16);border-color:rgba(243,239,231,.45)}
   .pill-track{
     display:flex;
     width:max-content;
@@ -761,15 +765,6 @@
   <video autoplay muted loop playsinline preload="metadata" src="hero-bg.mp4" aria-label="Tecla showreel"></video>
 </section>
 
-<section class="stats">
-  <div class="stats-grid" id="statsGrid">
-    <div class="stat"><div class="stat-num" data-count="70" data-prefix="$" data-suffix="M+">$0</div><div class="stat-label">In Client Sales Generated</div></div>
-    <div class="stat"><div class="stat-num" data-count="11" data-suffix="+">0</div><div class="stat-label">Years in Production</div></div>
-    <div class="stat"><div class="stat-num" data-count="500" data-suffix="+">0</div><div class="stat-label">Campaigns Delivered</div></div>
-    <div class="stat"><div class="stat-num" data-count="60" data-suffix="+">0</div><div class="stat-label">Countries Filmed In</div></div>
-  </div>
-</section>
-
 <section class="cta reveal" id="contact">
   <h2>Help us make<br>your <span>next big number.</span></h2>
   <p>Tell us what you are building and where you want it to go. We respond to every serious inquiry within one business day.</p>
@@ -960,38 +955,6 @@
     });
   }, {threshold:.12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // stats: staggered entrance + count up
-  const statsGrid = document.getElementById('statsGrid');
-  const statsIO = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      statsIO.unobserve(entry.target);
-      const stats = Array.from(statsGrid.children);
-      stats.forEach((stat, idx) => {
-        setTimeout(() => {
-          stat.classList.add('in');
-          const el = stat.querySelector('.stat-num');
-          const end = parseInt(el.dataset.count, 10);
-          const prefix = el.dataset.prefix || '';
-          const suffix = el.dataset.suffix || '';
-          if (reduced){
-            el.textContent = prefix + end + suffix;
-            return;
-          }
-          const start = performance.now();
-          function step(now){
-            const t = Math.min((now - start) / 1400, 1);
-            const eased = 1 - Math.pow(1 - t, 3);
-            el.textContent = prefix + Math.floor(eased * end) + suffix;
-            if (t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        }, reduced ? 0 : idx * 140);
-      });
-    });
-  }, {threshold:.3});
-  statsIO.observe(statsGrid);
 
   // rail auto-scrolls via CSS marquee (pauses on hover)
 
